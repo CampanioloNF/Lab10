@@ -1,5 +1,8 @@
 package it.polito.tdp.porto.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Paper {
 
 	private int eprintid;
@@ -8,6 +11,9 @@ public class Paper {
 	private String publication;
 	private String type;
 	private String types;
+	
+	private List<Author> authorsPair;
+	
 
 	public Paper(int eprintid, String title, String issn, String publication, String type, String types) {
 		this.eprintid = eprintid;
@@ -16,6 +22,15 @@ public class Paper {
 		this.publication = publication;
 		this.type = type;
 		this.types = types;
+		
+		this.authorsPair = new ArrayList<>();
+	}
+	
+	public void addAuthorsPair(Author a1, Author a2) {
+		
+		this.authorsPair.add(a1);
+		this.authorsPair.add(a2);
+		
 	}
 
 	public int getEprintid() {
@@ -66,10 +81,25 @@ public class Paper {
 		this.types = types;
 	}
 
+	public String toStringAPairs() {
+	 
+		if(!authorsPair.isEmpty()) {
+		
+		  String s = "( ";
+		
+		  for(Author a : this.authorsPair) 
+			   s+=a+", ";
+		    s+=" )";
+		    
+		    return s;
+		  
+		}
+		  return "";
+	}
+	
 	@Override
 	public String toString() {
-		return "Paper [eprintid=" + eprintid + ", title=" + title + ", issn=" + issn + ", publication=" + publication
-				+ ", type=" + type + ", types=" + types + "]";
+		return "( "+eprintid+" )"+title+" "+this.toStringAPairs();
 	}
 
 	@Override
